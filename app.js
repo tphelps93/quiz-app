@@ -23,6 +23,18 @@ const store = {
         'Shield Volcanoes'
       ],
       correctAnswer: 'Cryo Volcano'
+    },
+    {
+      question: 'What is the distance to Pluto from Earth',
+      answers: [
+        '200.53 billion miles',
+        '50.8 million miles',
+        '3.1259 billion miles',
+        '500 trillion miles'
+      ],
+      correctAnswer: [
+        '3.1259 billion miles'
+      ],
     }
   ],
   quizStarted: true,
@@ -65,9 +77,10 @@ function getQuestions() {
 // generate HTML functions
 function generateStartPage() {
   // Generates start page
-  const template = `<button id='start-quiz' class='next-question'>START</button>`;
+  const template = `<h1> Space Quiz </h1>
+  <button id='start-quiz' class='next-question'>START</button>`;
 
-  render(template);
+  show(template);
 }
 
 
@@ -78,6 +91,7 @@ function generateQuestionPage() {
 
   let questionNum = store.questionNumber;
   let question = getQuestions();
+  let score = store.score;
 
   let template = `<form class='container'>
       <h2> Question ${questionNum + 1}</h2>
@@ -92,19 +106,18 @@ function generateQuestionPage() {
 
       
 
-      <p>${questionNum} out of ${store.questions.length}</p>
+      <p>${questionNum + 1} out of ${store.questions.length}</p>
 
-      <p> Should count number of correct questions and number of wrong questions </p>
+      <p> Score is ${score} out of ${store.questions.length} </p>
  
     
     </form>
   `
-  render(template);
+  show(template);
 }
 
 function generateAnswerScreen() {
   let userAnswer = $('input[name="quiz-question"]:checked').val();
-  console.log(getQuestions());
   let question = getQuestions();
   let correctAnswer = question.correctAnswer;
   let score = store.score;
@@ -117,9 +130,23 @@ function generateAnswerScreen() {
     template = `<h2> Correct </h2>`
   } else {
     store.questionNumber += 1;
-    template = `<h2> Incorrect </h2>`
+    template = `<h2> Incorrect </h2>
+                <p> Correct Answer is: ${correctAnswer} </p>`
   }
-  render(template);
+  if (store.questionNumber === store.questions.length) {
+    template += "<button class='finish-quiz'> Finish Quiz </button>"
+  } else {
+    template += "<button class='next-question'> Next Question </button>"
+  }
+  show(template);
+}
+
+function generateEndingPage() {
+  const template = `<h1> You suck! </h1>
+                    <button class='restart-quiz'> Restart Quiz </button>`
+
+
+  show(template);
 }
 
 
@@ -128,21 +155,22 @@ function generateAnswerScreen() {
 
 // callback function 
 function handleQuizApp() {
-  render();
+  show();
   generateStartPage();
-  startQuiz();
   checkAnswer();
   nextQuestion();
   restartQuiz();
+  finishQuiz();
 }
 
 
-
+// single function render that looks through everything then calls 
+// what it needs to do
 
 // when the page loads, call `handleShoppingList`
 $(handleQuizApp);
 
-function render(state) {
+function show(state) {
   $('body').html(`${state}`)
 }
 
@@ -155,22 +183,19 @@ function nextQuestion() {
     generateQuestionPage();
   })
   // event for handling click to go to the next question
-
-  console.log('nextQuestion ran');
 }
 
-// *****For Chris --- When the 'START' button is clicked, the question view is rendered.
 function startQuiz() {
-  $('body').on('click', '#start-button' ,function(event) {
+  $('body').on('click', '#start-button', function(event) {
     event.preventDefault();
-    nextQuestion();
-    // display first question
-    // display answers
-    // radio button
-    // display submit answer button
-    // display counter for questions answered vs questions unanswered
   })
-  // When the user presses the "START" button, display first question
+}
+
+function finishQuiz() {
+  $('body').on('click', '.finish-quiz', function(event) {
+    event.preventDefault();
+    generateEndingPage();
+  });
 }
 
 function checkAnswer() {
@@ -179,12 +204,16 @@ function checkAnswer() {
     event.preventDefault();
     generateAnswerScreen();
   })
-  
-  console.log('checkAnswer ran');
 }
 
 function restartQuiz() {
-  // even to restart the quiz from the beginning
+  // event to restart the quiz from the beginning
+  $('body').on('click', '.restart-quiz', function(event) {
+    store.questions.score = 0;
+    store.questions.questionNumber = 0;
+    event.preventDefault();
+    location.reload();
+  })
 
-  console.log('restartQuiz ran');
+
 }
