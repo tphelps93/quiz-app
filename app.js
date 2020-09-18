@@ -27,7 +27,7 @@ const store = {
         "3.1259 billion miles",
         "500 trillion miles",
       ],
-      correctAnswer: ["3.1259 billion miles"],
+      correctAnswer: "3.1259 billion miles",
     },
 
     {
@@ -37,23 +37,23 @@ const store = {
     },
     {
       question: "How many Planets are in our Solar System?",
-      answers: [12, 8 , 9, 7],
-      correctAnswer: '8'
+      answers: ['12', '8', '9', '7'],
+      correctAnswer: '8',
     },
     {
       question: 'What is the distance from the Earth to Venus?',
       answers: ['162 millon miles', '102 million miles', '204 million miles', '64 million miles' ],
-      correctAnswer: '162 million miles (261 million kilometers)'
+      correctAnswer: '162 million miles'
     },
     {
       question: 'When was the last time the U.S. went to the moon?',
       answers: ['Jan 6th 1974', 'Oct 12th, 1982' , 'December 14, 1972' , 'June 4th, 1969'],
-      correctAnswer: 'December 14, 1972 Apollo 17 became the last manned mission to the Moon'
+      correctAnswer: 'December 14, 1972'
     },
     {
       question: 'what is the farthest Planet from the sun?',
       answers: ['Pluto' , 'Neptune' , 'Saturn' , 'Mars' ],
-      correctAnswer: 'Neptune - 2.83 billion miles . But Pluto really would be if it was a planet still.'
+      correctAnswer: 'Neptune'
     },
     {
       question: 'What is the biggest dump in space?',
@@ -61,8 +61,8 @@ const store = {
       correctAnswer: 'Earth'
     },
     {
-      question: 'what is the cost of  NASA space suit?',
-      answers: ['$12,000' , '$46,000' , '$789,000' , '$12,000,000'],
+      question: 'what is the cost of NASA space suit?',
+      answers: ['$12,000', '$46,000', '$789,000' , '$12,000,000'],
       correctAnswer: '$12,000,000'
     }
   ],
@@ -113,10 +113,10 @@ function getQuestions() {
 function generateStartPage() {
   // Generates start page
   const template = `<div class='container'>
-                    <div class='box'
-                      <h1> Space Quiz </h1>
-                      <button id='start-quiz' class='next-question'>START</button>
-                    </div>
+                      <div class='wrapper'>
+                        <h1> Space Quiz </h1>
+                        <button id='start-quiz' class='next-question'>Blast Off</button>
+                      </div>
                     </div>`;
 
   show(template);
@@ -132,24 +132,33 @@ function generateQuestionPage() {
   let score = store.score;
 
   let template = `<form class='container'>
-    <div class='box'>
+    <div class='wrapper'>
       <h2> Question ${questionNum + 1}</h2>
       <p>${question.question}</p>
       <ul>
-        <li><input type='radio' value='${
+
+        <li><input type='radio' id='answer-1' name='answer' value='${
           question.answers[0]
-        }' name='quiz-question'/><label>${question.answers[0]}</label></li>
-        <li><input type='radio' value='${
+        }' name='quiz-question'/>
+        <label for='answer-1'>${question.answers[0]}</label></li>
+
+        <li><input type='radio' id='answer-2' name='answer' value='${
           question.answers[1]
-        }' name='quiz-question'/><label>${question.answers[1]}</label></li>
-        <li><input type='radio' value='${
+        }' name='quiz-question'/>
+        <label for='answer-2'>${question.answers[1]}</label></li>
+
+        <li><input type='radio' id='answer-3' name='answer' value='${
           question.answers[2]
-        }' name='quiz-question'/><label>${question.answers[2]}</label></li>
-        <li><input type='radio' value='${
+        }' name='quiz-question'/>
+        <label for='answer-3'>${question.answers[2]}</label></li>
+
+        <li><input type='radio' id='answer-4' name='answer' value='${
           question.answers[3]
-        }' name='quiz-question'/><label>${question.answers[3]}</label></li>
-        <li><button type='submit' class='submit-answer'>Submit Answer</button></li>
+        }' name='quiz-question'/>
+        <label for='answer-4'>${question.answers[3]}</label></li>
+
       </ul>
+      <button type='submit' class='submit-answer'>Submit Answer</button>
 
       
 
@@ -164,25 +173,25 @@ function generateQuestionPage() {
 }
 
 function generateAnswerScreen() {
-  let userAnswer = $('input[name="quiz-question"]:checked').val();
+  let userAnswer = $('input[name="answer"]:checked').val();
   let question = getQuestions();
   let correctAnswer = question.correctAnswer;
   let score = store.score;
   let template;
 
-  if (correctAnswer === userAnswer) {
+  if (userAnswer === correctAnswer) {
     store.score += 1;
     store.questionNumber += 1;
-    template = `<div class='container'><h2> Correct </h2>`;
+    template = `<div class='container'><div class='wrapper'><h2> Correct </h2>`;
   } else {
     store.questionNumber += 1;
-    template = `<div class='container'<h2> Incorrect </h2>
+    template = `<div class='container'><div class='wrapper'><h2> Incorrect </h2>
                 <p> Correct Answer is: ${correctAnswer} </p>`;
   }
   if (store.questionNumber === store.questions.length) {
-    template += "<button class='finish-quiz'> Finish Quiz </button></div>";
+    template += "<button class='finish-quiz'> Finish Quiz </button></div></div>";
   } else {
-    template += "<button class='next-question'> Next Question </button></div>";
+    template += "<button class='next-question'> Next Question </button></div></div>";
   }
   show(template);
 }
@@ -192,9 +201,9 @@ function generateEndingPage() {
   let template;
 
   if(userScore >= 6) {
-    template += `<div class='container'><h1>Out of this world!</h1></div>`
+    template += `<div class='container'><div class='wrapper'><h1>Out of this world!</h1></div></div>`
   } else if (userScore <= 5) {
-      template += `<div class='container'><h1> You're a flat-earther</h1></div>`
+      template += `<div class='container'<div class='wrapper'><h1> You're a flat-earther</h1></div></div>`
   }
 
   show(template);
