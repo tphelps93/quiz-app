@@ -137,25 +137,21 @@ function generateQuestionPage() {
       <p>${question.question}</p>
       <ul>
 
-        <li><input type='radio' id='answer-1' name='answer' value='${
-          question.answers[0]
-        }' name='quiz-question'/>
-        <label for='answer-1'>${question.answers[0]}</label></li>
+        <li><label for='answer-1'>
+          <input type='radio' id='answer-1' name='answer' value='${question.answers[0]}' required/>
+        ${question.answers[0]}</label></li>
 
-        <li><input type='radio' id='answer-2' name='answer' value='${
-          question.answers[1]
-        }' name='quiz-question'/>
-        <label for='answer-2'>${question.answers[1]}</label></li>
+        <li><label for='answer-2'>
+        <input type='radio' id='answer-2' name='answer' value='${question.answers[1]}' required/>
+        ${question.answers[1]}</label></li>
 
-        <li><input type='radio' id='answer-3' name='answer' value='${
-          question.answers[2]
-        }' name='quiz-question'/>
-        <label for='answer-3'>${question.answers[2]}</label></li>
+        <li><label for='answer-3'>
+        <input type='radio' id='answer-3' name='answer' value='${question.answers[2]}' required/>
+        ${question.answers[2]}</label></li>
 
-        <li><input type='radio' id='answer-4' name='answer' value='${
-          question.answers[3]
-        }' name='quiz-question'/>
-        <label for='answer-4'>${question.answers[3]}</label></li>
+        <li><label for='answer-4'>
+        <input type='radio' id='answer-4' name='answer' value='${question.answers[3]}' required/>
+        ${question.answers[3]}</label></li>
 
       </ul>
       <button type='submit' class='submit-answer'>Submit Answer</button>
