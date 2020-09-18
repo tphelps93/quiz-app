@@ -5,41 +5,71 @@ const store = {
   // 5 or more questions are required
   questions: [
     {
-      question: 'What is the distance to the moon from Earth?',
-      answers: [
-        '238,900 miles',
-        '500,000 miles',
-        '20 miles',
-        '509,523 miles'
-      ],
-      correctAnswer: '238,900 miles'
+      question: "What is the distance to the moon from Earth?",
+      answers: ["238,900 miles", "500,000 miles", "20 miles", "509,523 miles"],
+      correctAnswer: "238,900 miles",
     },
     {
-      question: 'What type of volcanoes are on the surface of the moon, Titan?',
+      question: "What type of volcanoes are on the surface of the moon, Titan?",
       answers: [
-        'Lava Domes',
-        'Cryo Volcano',
-        'Composite Volcanoes',
-        'Shield Volcanoes'
+        "Lava Domes",
+        "Cryo Volcano",
+        "Composite Volcanoes",
+        "Shield Volcanoes",
       ],
-      correctAnswer: 'Cryo Volcano'
+      correctAnswer: "Cryo Volcano",
     },
     {
-      question: 'What is the distance to Pluto from Earth',
+      question: "What is the distance to Pluto from Earth",
       answers: [
-        '200.53 billion miles',
-        '50.8 million miles',
-        '3.1259 billion miles',
-        '500 trillion miles'
+        "200.53 billion miles",
+        "50.8 million miles",
+        "3.1259 billion miles",
+        "500 trillion miles",
       ],
-      correctAnswer: [
-        '3.1259 billion miles'
-      ],
+      correctAnswer: ["3.1259 billion miles"],
+    },
+
+    {
+      question: "How many days will it take to get to the Sun from Earth?",
+      answers: ['19 years', '4 days', '12 years' , '16 years'],
+      correctAnswer: "19 years"
+    },
+    {
+      question: "How many Planets are in our Solar System?",
+      answers: [12, 8 , 9, 7],
+      correctAnswer: '8'
+    },
+    {
+      question: 'What is the distance from the Earth to Venus?',
+      answers: ['162 millon miles', '102 million miles', '204 million miles', '64 million miles' ],
+      correctAnswer: '162 million miles (261 million kilometers)'
+    },
+    {
+      question: 'When was the last time the U.S. went to the moon?',
+      answers: ['Jan 6th 1974', 'Oct 12th, 1982' , 'December 14, 1972' , 'June 4th, 1969'],
+      correctAnswer: 'December 14, 1972 Apollo 17 became the last manned mission to the Moon'
+    },
+    {
+      question: 'what is the farthest Planet from the sun?',
+      answers: ['Pluto' , 'Neptune' , 'Saturn' , 'Mars' ],
+      correctAnswer: 'Neptune - 2.83 billion miles . But Pluto really would be if it was a planet still.'
+    },
+    {
+      question: 'What is the biggest dump in space?',
+      answers: ['Earth', 'Jupiter', 'The Sun', 'The Moon'],
+      correctAnswer: 'Earth'
+    },
+    {
+      question: 'what is the cost of  NASA space suit?',
+      answers: ['$12,000' , '$46,000' , '$789,000' , '$12,000,000'],
+      correctAnswer: '$12,000,000'
     }
   ],
+
   quizStarted: true,
   questionNumber: 0,
-  score: 0
+  score: 0,
 };
 
 function getQuestions() {
@@ -48,11 +78,16 @@ function getQuestions() {
   return nextQuestion;
 }
 
+
+
+
+
+
 /**
- * 
+ *
  * Technical requirements:
- * 
- * Your app should include a render() function, that regenerates the view each time the store is updated. 
+ *
+ * Your app should include a render() function, that regenerates the view each time the store is updated.
  * See your course material, consult your instructor, and reference the slides for more details.
  *
  * NO additional HTML elements should be added to the index.html file.
@@ -60,7 +95,7 @@ function getQuestions() {
  * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
  *
  * SEE BELOW FOR THE CATEGORIES OF THE TYPES OF FUNCTIONS YOU WILL BE CREATING 👇
- * 
+ *
  */
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
@@ -77,12 +112,15 @@ function getQuestions() {
 // generate HTML functions
 function generateStartPage() {
   // Generates start page
-  const template = `<h1> Space Quiz </h1>
-  <button id='start-quiz' class='next-question'>START</button>`;
+  const template = `<div class='container'>
+                    <div class='box'
+                      <h1> Space Quiz </h1>
+                      <button id='start-quiz' class='next-question'>START</button>
+                    </div>
+                    </div>`;
 
   show(template);
 }
-
 
 // make sure to have function update the state
 
@@ -94,13 +132,22 @@ function generateQuestionPage() {
   let score = store.score;
 
   let template = `<form class='container'>
+    <div class='box'>
       <h2> Question ${questionNum + 1}</h2>
       <p>${question.question}</p>
       <ul>
-        <li><input type='radio' value='${question.answers[0]}' name='quiz-question'/><label>${question.answers[0]}</label></li>
-        <li><input type='radio' value='${question.answers[1]}' name='quiz-question'/><label>${question.answers[1]}</label></li>
-        <li><input type='radio' value='${question.answers[2]}' name='quiz-question'/><label>${question.answers[2]}</label></li>
-        <li><input type='radio' value='${question.answers[3]}' name='quiz-question'/><label>${question.answers[3]}</label></li>
+        <li><input type='radio' value='${
+          question.answers[0]
+        }' name='quiz-question'/><label>${question.answers[0]}</label></li>
+        <li><input type='radio' value='${
+          question.answers[1]
+        }' name='quiz-question'/><label>${question.answers[1]}</label></li>
+        <li><input type='radio' value='${
+          question.answers[2]
+        }' name='quiz-question'/><label>${question.answers[2]}</label></li>
+        <li><input type='radio' value='${
+          question.answers[3]
+        }' name='quiz-question'/><label>${question.answers[3]}</label></li>
         <li><button type='submit' class='submit-answer'>Submit Answer</button></li>
       </ul>
 
@@ -110,9 +157,9 @@ function generateQuestionPage() {
 
       <p> Score is ${score} out of ${store.questions.length} </p>
  
-    
-    </form>
-  `
+    </div>
+      </form>
+  `;
   show(template);
 }
 
@@ -123,37 +170,37 @@ function generateAnswerScreen() {
   let score = store.score;
   let template;
 
-  
   if (correctAnswer === userAnswer) {
     store.score += 1;
     store.questionNumber += 1;
-    template = `<h2> Correct </h2>`
+    template = `<div class='container'><h2> Correct </h2>`;
   } else {
     store.questionNumber += 1;
-    template = `<h2> Incorrect </h2>
-                <p> Correct Answer is: ${correctAnswer} </p>`
+    template = `<div class='container'<h2> Incorrect </h2>
+                <p> Correct Answer is: ${correctAnswer} </p>`;
   }
   if (store.questionNumber === store.questions.length) {
-    template += "<button class='finish-quiz'> Finish Quiz </button>"
+    template += "<button class='finish-quiz'> Finish Quiz </button></div>";
   } else {
-    template += "<button class='next-question'> Next Question </button>"
+    template += "<button class='next-question'> Next Question </button></div>";
   }
   show(template);
 }
 
 function generateEndingPage() {
-  const template = `<h1> You suck! </h1>
-                    <button class='restart-quiz'> Restart Quiz </button>`
+  let userScore = store.score;
+  let template;
 
+  if(userScore >= 6) {
+    template += `<div class='container'><h1>Out of this world!</h1></div>`
+  } else if (userScore <= 5) {
+      template += `<div class='container'><h1> You're a flat-earther</h1></div>`
+  }
 
   show(template);
 }
 
-
-
-
-
-// callback function 
+// callback function
 function handleQuizApp() {
   show();
   generateStartPage();
@@ -164,35 +211,34 @@ function handleQuizApp() {
 }
 
 
-// single function render that looks through everything then calls 
+// single function render that looks through everything then calls
 // what it needs to do
 
 // when the page loads, call `handleShoppingList`
 $(handleQuizApp);
 
 function show(state) {
-  $('body').html(`${state}`)
+  $("body").html(`${state}`);
 }
 
 // Event Handlers
 
-
 function nextQuestion() {
-  $('body').on('click', '.next-question', function(event) {
+  $("body").on("click", ".next-question", function (event) {
     event.preventDefault();
     generateQuestionPage();
-  })
+  });
   // event for handling click to go to the next question
 }
 
 function startQuiz() {
-  $('body').on('click', '#start-button', function(event) {
+  $("body").on("click", "#start-button", function (event) {
     event.preventDefault();
-  })
+  });
 }
 
 function finishQuiz() {
-  $('body').on('click', '.finish-quiz', function(event) {
+  $("body").on("click", ".finish-quiz", function (event) {
     event.preventDefault();
     generateEndingPage();
   });
@@ -200,20 +246,18 @@ function finishQuiz() {
 
 function checkAnswer() {
   // event handler for calculating right or wrong answer
-  $('body').on('click', '.submit-answer', function(event) {
+  $("body").on("click", ".submit-answer", function (event) {
     event.preventDefault();
     generateAnswerScreen();
-  })
+  });
 }
 
 function restartQuiz() {
   // event to restart the quiz from the beginning
-  $('body').on('click', '.restart-quiz', function(event) {
+  $("body").on("click", ".restart-quiz", function (event) {
     store.questions.score = 0;
     store.questions.questionNumber = 0;
     event.preventDefault();
     location.reload();
-  })
-
-
+  });
 }
