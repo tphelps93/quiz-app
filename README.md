@@ -1,1 +1,3 @@
-### Boilerplate app structure for Quiz App project
+### Thinkful Quiz App Project (Chris and Taylor)
+
+[Preview](https://tphelps93.github.io/quiz-app/)
