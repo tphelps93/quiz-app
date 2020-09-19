@@ -136,34 +136,26 @@ function generateQuestionPage() {
       <h2> Question ${questionNum + 1}</h2>
       <p>${question.question}</p>
       <ul>
-
         <li><input type='radio' id='answer-1' name='answer' value='${
           question.answers[0]
         }' required/>
         <label for='answer-1'>${question.answers[0]}</label></li>
-
         <li><input type='radio' id='answer-2' name='answer' value='${
           question.answers[1]
         }' required/>
         <label for='answer-2'>${question.answers[1]}</label></li>
-
         <li><input type='radio' id='answer-3' name='answer' value='${
           question.answers[2]
         }' required/>
         <label for='answer-3'>${question.answers[2]}</label></li>
-
         <li><input type='radio' id='answer-4' name='answer' value='${
           question.answers[3]
         }' required/>
         <label for='answer-4'>${question.answers[3]}</label></li>
-
       </ul>
       <button type='submit' class='submit-answer'>Submit Answer</button>
-
       
-
       <p>${questionNum + 1} out of ${store.questions.length}</p>
-
       <p> Score is ${score} out of ${store.questions.length} </p>
  
     </div>
@@ -267,7 +259,7 @@ function finishQuiz() {
 
 function checkAnswer() {
   // event handler for calculating right or wrong answer
-  $("body").on("click", ".submit-answer", function (event) {
+  $("body").submit(".submit-answer", function (event) {
     event.preventDefault();
     generateAnswerScreen();
   });
@@ -276,9 +268,11 @@ function checkAnswer() {
 function restartQuiz() {
   // event to restart the quiz from the beginning
   $("body").on("click", ".restart-quiz", function (event) {
+    event.preventDefault();
     store.questions.score = 0;
     store.questions.questionNumber = 0;
-    event.preventDefault();
     location.reload();
+    // generateStartPage();
   });
 }
+
